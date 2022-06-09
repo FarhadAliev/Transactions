@@ -39,7 +39,8 @@ export const TransactionsProvider = ({ children }) => {
           timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
           message: transaction.message,
           keyword: transaction.keyword,
-          amount: parseInt(transaction.amount._hex) / (10 ** 18)
+          // eslint-disable-next-line no-underscore-dangle
+          amount: parseInt(transaction.amount._hex, 10) / (10 ** 18)
         }));
 
         console.log(structuredTransactions);
@@ -53,6 +54,7 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  // eslint-disable-next-line consistent-return
   const checkIfWalletIsConnect = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
@@ -86,6 +88,7 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  // eslint-disable-next-line consistent-return
   const connectWallet = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
@@ -114,6 +117,7 @@ export const TransactionsProvider = ({ children }) => {
             from: currentAccount,
             to: addressTo,
             gas: "0x5208",
+            // eslint-disable-next-line no-underscore-dangle
             value: parsedAmount._hex,
           }],
         });
@@ -147,6 +151,7 @@ export const TransactionsProvider = ({ children }) => {
 
   return (
     <TransactionContext.Provider
+        /* eslint-disable-next-line react/jsx-no-constructed-context-values */
       value={{
         transactionCount,
         connectWallet,
